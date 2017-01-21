@@ -25,6 +25,7 @@ public class PlayerController : NetworkBehaviour {
     public Slider staminaBar;
     public Text victoryText;
     public Animator animator;
+    public SpriteRenderer spriteRenderer;
 
     [SyncVar]
     private bool isCharging;

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 114cbe7b1b2c8ea478cacd6840674d58
-timeCreated: 1485003921
+timeCreated: 1485019818
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -26,6 +26,13 @@ TextureImporter:
     21300038: wave_player_19
     21300040: wave_player_20
     21300042: wave_player_21
+    21300044: wave_player_22
+    21300046: wave_player_23
+    21300048: wave_player_24
+    21300050: wave_player_25
+    21300052: wave_player_26
+    21300054: wave_player_27
+    21300056: wave_player_28
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -96,7 +103,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 2
+        y: 0
         width: 160
         height: 144
       alignment: 0
@@ -109,7 +116,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 160
-        y: 2
+        y: 0
         width: 160
         height: 144
       alignment: 0
@@ -122,7 +129,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 320
-        y: 2
+        y: 0
         width: 160
         height: 144
       alignment: 0
@@ -135,7 +142,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 480
-        y: 2
+        y: 0
         width: 160
         height: 144
       alignment: 0
@@ -148,7 +155,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 640
-        y: 2
+        y: 0
         width: 160
         height: 144
       alignment: 0
@@ -161,7 +168,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 800
-        y: 2
+        y: 0
         width: 160
         height: 144
       alignment: 0
@@ -174,7 +181,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 960
-        y: 2
+        y: 0
         width: 160
         height: 144
       alignment: 0
@@ -187,7 +194,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1120
-        y: 2
+        y: 0
         width: 160
         height: 144
       alignment: 0
@@ -200,7 +207,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1280
-        y: 2
+        y: 0
         width: 160
         height: 144
       alignment: 0
@@ -213,7 +220,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1440
-        y: 2
+        y: 0
         width: 160
         height: 144
       alignment: 0
@@ -226,7 +233,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1600
-        y: 2
+        y: 0
         width: 160
         height: 144
       alignment: 0
@@ -239,7 +246,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1760
-        y: 2
+        y: 0
         width: 160
         height: 144
       alignment: 0
@@ -252,7 +259,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1920
-        y: 2
+        y: 0
         width: 160
         height: 144
       alignment: 0
@@ -265,7 +272,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2080
-        y: 2
+        y: 0
         width: 160
         height: 144
       alignment: 0
@@ -278,7 +285,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2240
-        y: 2
+        y: 0
         width: 160
         height: 144
       alignment: 0
@@ -291,7 +298,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2400
-        y: 2
+        y: 0
         width: 160
         height: 144
       alignment: 0
@@ -304,7 +311,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2560
-        y: 2
+        y: 0
         width: 160
         height: 144
       alignment: 0
@@ -317,7 +324,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2720
-        y: 2
+        y: 0
         width: 160
         height: 144
       alignment: 0
@@ -330,7 +337,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2880
-        y: 2
+        y: 0
         width: 160
         height: 144
       alignment: 0
@@ -343,7 +350,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 3040
-        y: 2
+        y: 0
         width: 160
         height: 144
       alignment: 0
@@ -356,7 +363,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 3200
-        y: 2
+        y: 0
         width: 160
         height: 144
       alignment: 0
@@ -369,7 +376,98 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 3360
-        y: 2
+        y: 0
+        width: 160
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wave_player_22
+      rect:
+        serializedVersion: 2
+        x: 3520
+        y: 0
+        width: 160
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wave_player_23
+      rect:
+        serializedVersion: 2
+        x: 3680
+        y: 0
+        width: 160
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wave_player_24
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 0
+        width: 160
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wave_player_25
+      rect:
+        serializedVersion: 2
+        x: 4000
+        y: 0
+        width: 160
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wave_player_26
+      rect:
+        serializedVersion: 2
+        x: 4160
+        y: 0
+        width: 160
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wave_player_27
+      rect:
+        serializedVersion: 2
+        x: 4320
+        y: 0
+        width: 160
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: wave_player_28
+      rect:
+        serializedVersion: 2
+        x: 4480
+        y: 0
         width: 160
         height: 144
       alignment: 0
