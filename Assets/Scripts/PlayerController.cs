@@ -176,6 +176,7 @@ public class PlayerController : NetworkBehaviour {
     private void OnParticleCollision(GameObject collision)
     {
         NotifyDeath(isLocalPlayer);
+        Debug.Log("called collision");
     }
 
     [ServerCallback]
