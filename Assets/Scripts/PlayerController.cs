@@ -178,6 +178,7 @@ public class PlayerController : NetworkBehaviour {
 
     private void OnParticleCollision(GameObject collision)
     {
+        if (!isLocalPlayer) return;
         isDead = true;
         NotifyDeath();
     }
@@ -191,6 +192,8 @@ public class PlayerController : NetworkBehaviour {
     [ClientRpc]
     private void RpcActivateEnd()
     {
+        if (!isLocalPlayer) return;
+        Debug.Log("Activated rpc");
         isGameEnd = true;
         GetComponent<Collider2D>().enabled = false;
         if(isDead)
