@@ -30,6 +30,8 @@ public class PlayerController : NetworkBehaviour {
     public GameObject loseText;
     public GameObject tryButton;
     public bool isGameEnd;
+    [SyncVar]
+    public bool isDead;
 
     [SyncVar]
     private bool isCharging;
@@ -48,6 +50,7 @@ public class PlayerController : NetworkBehaviour {
         if (!isLocalPlayer) return;
         direction = -1;
         isGameEnd = false;
+        isDead = false;
     }
 
     [ServerCallback]
@@ -175,23 +178,22 @@ public class PlayerController : NetworkBehaviour {
 
     private void OnParticleCollision(GameObject collision)
     {
-        NotifyDeath(isLocalPlayer);
-        Debug.Log("called collision");
+        isDead = true;
+        NotifyDeath();
     }
 
     [ServerCallback]
-    private void NotifyDeath(bool death)
+    private void NotifyDeath()
     {
-        RpcActivateDeath(death);
+        RpcActivateEnd();
     }
 
     [ClientRpc]
-    private void RpcActivateDeath(bool death)
+    private void RpcActivateEnd()
     {
-        Debug.Log("Called this");
         isGameEnd = true;
         GetComponent<Collider2D>().enabled = false;
-        if(death)
+        if(isDead)
         {
             animator.SetTrigger("Lose");
             if (loseText != null)
