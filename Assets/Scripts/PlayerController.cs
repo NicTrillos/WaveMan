@@ -27,6 +27,7 @@ public class PlayerController : NetworkBehaviour {
     private bool isCharging;
     [SyncVar]
     public float bombIncrease = 0.0f;
+    [SyncVar]
     public float bombIncreaseTime = 0.0f;
 
     private void Reset()
@@ -129,10 +130,23 @@ public class PlayerController : NetworkBehaviour {
     private void CmdIncreaseBomb()
     {
         bombIncrease += bombIncreaseRate * Time.deltaTime;
+        bombIncreaseTime += bombTimeIncreaseRate * Time.deltaTime;
     }
 
     [Command]
     private void CmdActivateBomb(Vector3 position)
+    {
+        RpcActivateBomb(position);
+    }
+
+    [Command]
+    private void CmdDecreaseStamina()
+    {
+        currentStamina -= staminaDecrease * Time.deltaTime;
+    }
+
+    [ClientRpc]
+    private void RpcActivateBomb(Vector3 position)
     {
         isCharging = false;
         GameObject bomb = GameObject.Instantiate(bombEffect);
@@ -144,11 +158,4 @@ public class PlayerController : NetworkBehaviour {
         bombIncrease = 0.0f;
         bombIncreaseTime = 0f;
     }
-
-    [Command]
-    private void CmdDecreaseStamina()
-    {
-        currentStamina -= staminaDecrease * Time.deltaTime;
-    }
-
 }

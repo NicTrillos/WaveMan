@@ -6,52 +6,45 @@ using UnityEngine.UI;
 
 public class BombController : NetworkBehaviour
 {
+    //[SyncVar]
 	public float timeToExplode;
-    [SyncVar]
+    //[SyncVar]
     public bool hasExploded;
     public ParticleSystem bombEffect;
     public Text bombText;
 
-    [SyncVar]
+    //[SyncVar]
     private float currentTimeToExplode;    
     
-    [ServerCallback]
+    //[ServerCallback]
 	void Start () {
         currentTimeToExplode = timeToExplode;
         hasExploded = false;
 	}
 	
-	[ServerCallback]
+    //[ServerCallback]
 	void Update () {
 
         if (bombText != null)
         {
             bombText.text = "" + Mathf.Floor(currentTimeToExplode * 20f);
         }
-
-        CmdDecreaseCurrentTimeToExplode();
-        if(currentTimeToExplode <= 0.0f && !hasExploded)
+        
+        currentTimeToExplode -= Time.deltaTime;
+        if (currentTimeToExplode <= 0.0f && !hasExploded)
         {
-            CmdExplode(gameObject);
+            if (bombText != null)
+            {
+                bombText.enabled = false;
+            }
+            RpcExplode(gameObject);
         }
 	}
 
-    [Command]
-    private void CmdDecreaseCurrentTimeToExplode()
-    {
-        currentTimeToExplode -= Time.deltaTime;
-    }
-
-    [Command]
-    private void CmdExplode(GameObject go)
-    {
-        hasExploded = true;
-        RpcExplode(go);
-    }
-
-    [RPC]
+    //[ClientRpc]
     private void RpcExplode(GameObject go)
     {
+        hasExploded = true;
         if (bombText != null)
         {
             bombText.enabled = false;
