@@ -17,7 +17,7 @@ Platform assembly: C:\Users\HP\Documents\GitHub\WaveMan\Builds\test1_Data\Manage
 Loading C:\Users\HP\Documents\GitHub\WaveMan\Builds\test1_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\HP\Documents\GitHub\WaveMan\Builds\test1_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
 Loading C:\Users\HP\Documents\GitHub\WaveMan\Builds\test1_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
-- Completed reload, in  0.089 seconds
+- Completed reload, in  0.043 seconds
 Platform assembly: C:\Users\HP\Documents\GitHub\WaveMan\Builds\test1_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\HP\Documents\GitHub\WaveMan\Builds\test1_Data\Managed\System.dll (this message is harmless)
 desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
@@ -25,12 +25,12 @@ desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.476487 ms
+UnloadTime: 35.033310 ms
 Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 1.931608 ms
+UnloadTime: 2.407255 ms
 
-Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 355.
-Total: 1.352975 ms (FindLiveObjects: 0.100154 ms CreateObjectMapping: 0.113603 ms MarkObjects: 1.127184 ms  DeleteObjects: 0.010617 ms)
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 429.
+Total: 8.047777 ms (FindLiveObjects: 0.047777 ms CreateObjectMapping: 0.021234 ms MarkObjects: 7.962486 ms  DeleteObjects: 0.014156 ms)
 
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 2ee4 -> priority: 1 
+  Thread -> id: f90 -> priority: 1 
