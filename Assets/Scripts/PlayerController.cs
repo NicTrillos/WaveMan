@@ -136,7 +136,10 @@ public class PlayerController : NetworkBehaviour {
     [Command]
     private void CmdActivateBomb(Vector3 position)
     {
+        isCharging = false;
         RpcActivateBomb(position);
+        bombIncrease = 0.0f;
+        bombIncreaseTime = 0f;
     }
 
     [Command]
@@ -148,14 +151,11 @@ public class PlayerController : NetworkBehaviour {
     [ClientRpc]
     private void RpcActivateBomb(Vector3 position)
     {
-        isCharging = false;
         GameObject bomb = GameObject.Instantiate(bombEffect);
         bomb.transform.position = position;
         BombController bombController = bomb.GetComponent<BombController>();
         bombController.bombEffect.startSize = bombBasicSize + bombIncrease;
         bombController.timeToExplode = bombBasicTime + bombIncreaseTime;
-        NetworkServer.Spawn(bomb);
-        bombIncrease = 0.0f;
-        bombIncreaseTime = 0f;
+        //NetworkServer.Spawn(bomb);
     }
 }
