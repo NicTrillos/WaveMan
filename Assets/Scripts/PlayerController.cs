@@ -21,7 +21,7 @@ public class PlayerController : NetworkBehaviour {
     public float bombBasicTime;
     public float bombTimeIncreaseRate;
     public GameObject bombEffect;
-    private Slider staminaBar;
+    public Slider staminaBar;
 
     [SyncVar]
     private bool isCharging;
@@ -38,7 +38,7 @@ public class PlayerController : NetworkBehaviour {
     private void Awake()
     {
         if (!isLocalPlayer) return;
-        staminaBar = GameObject.FindGameObjectWithTag("StaminaBar").GetComponent<Slider>();
+        //staminaBar = GameObject.FindGameObjectWithTag("StaminaBar").GetComponent<Slider>();
     }
 
     [ServerCallback]
