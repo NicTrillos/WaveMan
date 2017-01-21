@@ -16,11 +16,15 @@ public class PlayerController : NetworkBehaviour {
     public float currentStamina;
     public float staminaDecrease;
     public float bombIncreaseRate;
+    public float bombBasicSize;
+    public float bombBasicTime;
+    public float bombTimeIncreaseRate;
     public GameObject bombEffect;
-    public Slider staminaBar;
+    private Slider staminaBar;
 
-    public bool isCharging;
+    private bool isCharging;
     public float bombIncrease = 0.0f;
+    public float bombIncreaseTime = 0.0f;
 
     private void Reset()
     {
@@ -31,6 +35,7 @@ public class PlayerController : NetworkBehaviour {
 	void Start () {
         currentStamina = maxStamina;
         isCharging = false;
+        staminaBar = GameObject.FindGameObjectWithTag("StaminaBar").GetComponent<Slider>();
 	}
 	
 	// Update is called once per frame
@@ -77,6 +82,7 @@ public class PlayerController : NetworkBehaviour {
             else
             {
                 bombIncrease += bombIncreaseRate * Time.deltaTime;
+
                 currentStamina -= staminaDecrease * Time.deltaTime;
             }
         }        
@@ -92,11 +98,23 @@ public class PlayerController : NetworkBehaviour {
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Bomb")
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void ActivateBomb()
     {
         isCharging = false;
         GameObject bomb = GameObject.Instantiate(bombEffect);
         bomb.transform.position = this.transform.position;
+        BombController bombController = bomb.GetComponent<BombController>();
+        bombController.bombEffect.startSize = bombBasicSize + bombIncrease;
+        bombController.timeToExplode = bombBasicTime + bombIncreaseTime;
         bombIncrease = 0.0f;
+        bombIncreaseTime = 0.0f;
     }
 }
