@@ -133,18 +133,7 @@ public class PlayerController : NetworkBehaviour {
             staminaBar.value = currentStamina / maxStamina;
         }
     }
-
-    private void OnParticleCollision(GameObject collision)
-    {
-        CmdDestroyPlayer(gameObject);
-    }
-
-    [Command]
-    private void CmdDestroyPlayer(GameObject go)
-    {
-        NetworkServer.Destroy(go);
-    }
-
+        
     [Command]
     private void CmdSetIsCharging(bool v)
     {
