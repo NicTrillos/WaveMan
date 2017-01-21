@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : NetworkBehaviour {
+
+    [SerializeField]
+    private Rigidbody2D rigidbody2d;
 
     public float charSpeed;
     public float horizontalLimit;
@@ -18,6 +22,10 @@ public class PlayerController : MonoBehaviour {
     public bool isCharging;
     public float bombIncrease = 0.0f;
 
+    private void Reset()
+    {
+        rigidbody2d = GetComponent<Rigidbody2D>();
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -28,9 +36,15 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        if (!isLocalPlayer) return;
+
         if(!isCharging)
         {
-            this.transform.Translate(Input.GetAxis("Horizontal") * charSpeed, Input.GetAxis("Vertical") * charSpeed, 0);
+            var moveX = Input.GetAxisRaw("Horizontal");
+            var moveY = Input.GetAxisRaw("Vertical");
+
+            rigidbody2d.velocity = new Vector2(moveX, moveY) * charSpeed;
+
             if (this.transform.position.x > horizontalLimit)
             {
                 this.transform.position = new Vector3(horizontalLimit, this.transform.position.y, 0);
