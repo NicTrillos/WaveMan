@@ -26,6 +26,10 @@ public class PlayerController : NetworkBehaviour {
     public Text victoryText;
     public Animator animator;
     public SpriteRenderer spriteRenderer;
+    public GameObject winText;
+    public GameObject loseText;
+    public GameObject tryButton;
+    public bool isGameEnd;
 
     [SyncVar]
     private bool isCharging;
@@ -43,6 +47,7 @@ public class PlayerController : NetworkBehaviour {
     {
         if (!isLocalPlayer) return;
         direction = -1;
+        isGameEnd = false;
     }
 
     [ServerCallback]
@@ -56,83 +61,88 @@ public class PlayerController : NetworkBehaviour {
     {
         if (!isLocalPlayer) return;
 
-        if(!isCharging)
+        if(!isGameEnd)
         {
-            var moveX = Input.GetAxisRaw("Horizontal");
-            var moveY = Input.GetAxisRaw("Vertical");
+            if (!isCharging)
+            {
+                var moveX = Input.GetAxisRaw("Horizontal");
+                var moveY = Input.GetAxisRaw("Vertical");
 
-            if(moveY < 0.0f)
-            {
-                direction = 0;
-            }
-            else if(moveY > 0.0f)
-            {
-                direction = 2;
+                if (moveX == 0.0f && moveY == 0.0f)
+                {
+                    direction = -1;
+                }
+
+                if (moveY < 0.0f)
+                {
+                    direction = 0;
+                }
+                else if (moveY > 0.0f)
+                {
+                    direction = 2;
+                }
+
+                if (moveX > 0.0f)
+                {
+                    direction = 1;
+                    spriteRenderer.flipX = false;
+                }
+                else if (moveX < 0.0f)
+                {
+                    direction = 3;
+                    spriteRenderer.flipX = true;
+                }
+
+                animator.SetInteger("Direction", direction);
+
+                rigidbody2d.velocity = new Vector2(moveX, moveY) * charSpeed;
+
+                if (this.transform.position.x > horizontalLimit)
+                {
+                    this.transform.position = new Vector3(horizontalLimit, this.transform.position.y, 0);
+                }
+                if (this.transform.position.x < -horizontalLimit)
+                {
+                    this.transform.position = new Vector3(-horizontalLimit, this.transform.position.y, 0);
+                }
+                if (this.transform.position.y > verticalLimit)
+                {
+                    this.transform.position = new Vector3(this.transform.position.x, verticalLimit, 0);
+                }
+                if (this.transform.position.y < -verticalLimit)
+                {
+                    this.transform.position = new Vector3(this.transform.position.x, -verticalLimit, 0);
+                }
             }
 
-            if(moveX > 0.0f)
+            if (Input.GetKeyDown("space") && currentStamina > 0.0f)
             {
-                direction = 1;
-            }
-            else if(moveX < 0.0f)
-            {
-                direction = 3;
+                CmdSetIsCharging(true);
             }
 
-            if(moveX == 0.0f && moveY == 0.0f)
+            if (isCharging)
             {
-                direction = -1;
+                if (currentStamina <= 0.0f)
+                {
+                    CmdActivateBomb(transform.position);
+                }
+                else
+                {
+                    CmdIncreaseBomb();
+                    CmdDecreaseStamina();
+                }
             }
 
-            animator.SetInteger("Direction", direction);
-
-            rigidbody2d.velocity = new Vector2(moveX, moveY) * charSpeed;
-
-            if (this.transform.position.x > horizontalLimit)
-            {
-                this.transform.position = new Vector3(horizontalLimit, this.transform.position.y, 0);
-            }
-            if (this.transform.position.x < -horizontalLimit)
-            {
-                this.transform.position = new Vector3(-horizontalLimit, this.transform.position.y, 0);
-            }
-            if (this.transform.position.y > verticalLimit)
-            {
-                this.transform.position = new Vector3(this.transform.position.x, verticalLimit, 0);
-            }
-            if (this.transform.position.y < -verticalLimit)
-            {
-                this.transform.position = new Vector3(this.transform.position.x, -verticalLimit, 0);
-            }
-        }
-
-        if(Input.GetKeyDown("space") && currentStamina > 0.0f)
-        {
-            CmdSetIsCharging(true);
-        }
-
-        if (isCharging)
-        {
-            if(currentStamina <= 0.0f)
+            if (Input.GetKeyUp("space") && isCharging)
             {
                 CmdActivateBomb(transform.position);
             }
-            else
-            {
-                CmdIncreaseBomb();
-                CmdDecreaseStamina();
+
+            if (staminaBar != null)
+            {                
+                staminaBar.value = currentStamina / maxStamina;
             }
         }        
-
-        if(Input.GetKeyUp("space") && isCharging)
-        {
-            CmdActivateBomb(transform.position);
-        }
-
-        if(staminaBar != null)
-        {
-            staminaBar.value = currentStamina / maxStamina;
-        }
     }
         
     [Command]
@@ -163,6 +173,28 @@ public class PlayerController : NetworkBehaviour {
         currentStamina -= staminaDecrease * Time.deltaTime;
     }
 
+    [ServerCallback]
+    private void OnParticleCollision(GameObject collision)
+    {
+        RpcActivateDeath();
+    }
+
+    [ClientRpc]
+    private void RpcActivateDeath()
+    {
+        isGameEnd = true;
+        GetComponent<Collider2D>().enabled = false;
+        animator.SetTrigger("Lose");
+        if(loseText != null)
+        {
+            loseText.SetActive(true);
+        }
+        if(tryButton != null)
+        {
+            tryButton.SetActive(true);
+        }
+    }
+
     [ClientRpc]
     private void RpcActivateBomb(Vector3 position, float bombIncrease, float bombIncreaseTime)
     {
@@ -171,6 +203,5 @@ public class PlayerController : NetworkBehaviour {
         BombController bombController = bomb.GetComponent<BombController>();
         bombController.bombEffect.startSize = bombBasicSize + bombIncrease;
         bombController.timeToExplode = bombBasicTime + bombIncreaseTime;
-        //NetworkServer.Spawn(bomb);
     }
 }

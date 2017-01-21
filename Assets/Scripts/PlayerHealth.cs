@@ -11,6 +11,9 @@ public class PlayerHealth : NetworkBehaviour
     private GameObject victoryTextPrefab;
     private VictoryMessage victoryText;
 
+    [SerializeField]
+    private GameObject tryAgainButtonPrefab;
+
     [ServerCallback]
     private void Start()
     {
@@ -25,17 +28,20 @@ public class PlayerHealth : NetworkBehaviour
         if (victoryText == null)
         {
             var go = Instantiate(victoryTextPrefab);
-            victoryText = go.GetComponent<VictoryMessage>();
+            victoryText = go.GetComponent<VictoryMessage>();            
         }
         if (gameObj == gameObject)
         {
             victoryText.SetVictoryMessage("You Lose");
             Destroy(gameObj);
+            var but = Instantiate(tryAgainButtonPrefab);
         }
         else
         {
             victoryText.SetVictoryMessage("You Win");
+            var but = Instantiate(tryAgainButtonPrefab);
         }
+        Debug.Log("Reached first method");
     }
 
     [Server]
@@ -79,6 +85,7 @@ public class PlayerHealth : NetworkBehaviour
             victoryText.SetVictoryMessage("You Win");
 
         Destroy(gameObject);
+        Debug.Log("Reached second method");
     }
 
     [ClientRpc]
@@ -93,5 +100,6 @@ public class PlayerHealth : NetworkBehaviour
         {
             victoryText.SetVictoryMessage("You Win");
         }
+        Debug.Log("Reached third method");
     }
 }
