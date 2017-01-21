@@ -13,6 +13,7 @@ public class PlayerController : NetworkBehaviour {
     public float horizontalLimit;
     public float verticalLimit;
     public float maxStamina;
+    public int direction;
     [SyncVar]
     public float currentStamina;
     public float staminaDecrease;
@@ -22,6 +23,8 @@ public class PlayerController : NetworkBehaviour {
     public float bombTimeIncreaseRate;
     public GameObject bombEffect;
     public Slider staminaBar;
+    public Text victoryText;
+    public Animator animator;
 
     [SyncVar]
     private bool isCharging;
@@ -38,6 +41,7 @@ public class PlayerController : NetworkBehaviour {
     private void Awake()
     {
         if (!isLocalPlayer) return;
+        direction = -1;
     }
 
     [ServerCallback]
@@ -55,6 +59,31 @@ public class PlayerController : NetworkBehaviour {
         {
             var moveX = Input.GetAxisRaw("Horizontal");
             var moveY = Input.GetAxisRaw("Vertical");
+
+            if(moveY < 0.0f)
+            {
+                direction = 0;
+            }
+            else if(moveY > 0.0f)
+            {
+                direction = 2;
+            }
+
+            if(moveX > 0.0f)
+            {
+                direction = 1;
+            }
+            else if(moveX < 0.0f)
+            {
+                direction = 3;
+            }
+
+            if(moveX == 0.0f && moveY == 0.0f)
+            {
+                direction = -1;
+            }
+
+            animator.SetInteger("Direction", direction);
 
             rigidbody2d.velocity = new Vector2(moveX, moveY) * charSpeed;
 
