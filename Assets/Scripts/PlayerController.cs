@@ -13,6 +13,7 @@ public class PlayerController : NetworkBehaviour {
     public float horizontalLimit;
     public float verticalLimit;
     public float maxStamina;
+    [SyncVar]
     public float currentStamina;
     public float staminaDecrease;
     public float bombIncreaseRate;
@@ -22,7 +23,9 @@ public class PlayerController : NetworkBehaviour {
     public GameObject bombEffect;
     private Slider staminaBar;
 
+    [SyncVar]
     private bool isCharging;
+    [SyncVar]
     public float bombIncrease = 0.0f;
     public float bombIncreaseTime = 0.0f;
 
@@ -31,11 +34,16 @@ public class PlayerController : NetworkBehaviour {
         rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
-	// Use this for initialization
+    private void Awake()
+    {
+        if (!isLocalPlayer) return;
+        staminaBar = GameObject.FindGameObjectWithTag("StaminaBar").GetComponent<Slider>();
+    }
+
+    [ServerCallback]
 	void Start () {
         currentStamina = maxStamina;
         isCharging = false;
-        staminaBar = GameObject.FindGameObjectWithTag("StaminaBar").GetComponent<Slider>();
 	}
 	
 	// Update is called once per frame
@@ -70,26 +78,25 @@ public class PlayerController : NetworkBehaviour {
 
         if(Input.GetKeyDown("space") && currentStamina > 0.0f)
         {
-            isCharging = true;
+            CmdSetIsCharging(true);
         }
 
         if (isCharging)
         {
             if(currentStamina <= 0.0f)
             {
-                ActivateBomb();
+                CmdActivateBomb(transform.position);
             }
             else
             {
-                bombIncrease += bombIncreaseRate * Time.deltaTime;
-
-                currentStamina -= staminaDecrease * Time.deltaTime;
+                CmdIncreaseBomb();
+                CmdDecreaseStamina();
             }
         }        
 
         if(Input.GetKeyUp("space") && isCharging)
         {
-            ActivateBomb();
+            CmdActivateBomb(transform.position);
         }
 
         if(staminaBar != null)
@@ -102,19 +109,46 @@ public class PlayerController : NetworkBehaviour {
     {
         if (collision.gameObject.tag == "Bomb")
         {
-            Destroy(gameObject);
+            CmdDestroyPlayer(gameObject);
         }
     }
 
-    private void ActivateBomb()
+    [Command]
+    private void CmdDestroyPlayer(GameObject go)
+    {
+        NetworkServer.Destroy(go);
+    }
+
+    [Command]
+    private void CmdSetIsCharging(bool v)
+    {
+        isCharging = v;
+    }
+
+    [Command]
+    private void CmdIncreaseBomb()
+    {
+        bombIncrease += bombIncreaseRate * Time.deltaTime;
+    }
+
+    [Command]
+    private void CmdActivateBomb(Vector3 position)
     {
         isCharging = false;
         GameObject bomb = GameObject.Instantiate(bombEffect);
-        bomb.transform.position = this.transform.position;
+        bomb.transform.position = position;
         BombController bombController = bomb.GetComponent<BombController>();
         bombController.bombEffect.startSize = bombBasicSize + bombIncrease;
         bombController.timeToExplode = bombBasicTime + bombIncreaseTime;
+        NetworkServer.Spawn(bomb);
         bombIncrease = 0.0f;
-        bombIncreaseTime = 0.0f;
+        bombIncreaseTime = 0f;
     }
+
+    [Command]
+    private void CmdDecreaseStamina()
+    {
+        currentStamina -= staminaDecrease * Time.deltaTime;
+    }
+
 }
