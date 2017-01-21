@@ -175,21 +175,22 @@ public class PlayerController : NetworkBehaviour {
 
     private void OnParticleCollision(GameObject collision)
     {
-        NotifyDeath(gameObject);
+        NotifyDeath(isLocalPlayer);
     }
 
     [ServerCallback]
-    private void NotifyDeath(GameObject go)
+    private void NotifyDeath(bool death)
     {
-        RpcActivateDeath(go);
+        RpcActivateDeath(death);
     }
 
     [ClientRpc]
-    private void RpcActivateDeath(GameObject go)
+    private void RpcActivateDeath(bool death)
     {
+        Debug.Log("Called this");
         isGameEnd = true;
         GetComponent<Collider2D>().enabled = false;
-        if(gameObject == go)
+        if(death)
         {
             animator.SetTrigger("Lose");
             if (loseText != null)
