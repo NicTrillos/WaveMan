@@ -30,7 +30,7 @@ public class PlayerController : NetworkBehaviour {
     public GameObject loseText;
     public GameObject tryButton;
     public bool isGameEnd;
-    [SyncVar]
+   
     public bool isDead;
 
     [SyncVar]
