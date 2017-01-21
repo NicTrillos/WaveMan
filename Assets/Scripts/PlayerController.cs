@@ -176,19 +176,32 @@ public class PlayerController : NetworkBehaviour {
     [ServerCallback]
     private void OnParticleCollision(GameObject collision)
     {
-        RpcActivateDeath();
+        RpcActivateDeath(gameObject);
     }
 
     [ClientRpc]
-    private void RpcActivateDeath()
+    private void RpcActivateDeath(GameObject go)
     {
         isGameEnd = true;
         GetComponent<Collider2D>().enabled = false;
-        animator.SetTrigger("Lose");
-        if(loseText != null)
+        if(gameObject == go)
         {
-            loseText.SetActive(true);
+            animator.SetTrigger("Lose");
+            if (loseText != null)
+            {
+                loseText.SetActive(true);
+            }
         }
+        else
+        {
+            animator.SetTrigger("Win");
+            if (winText != null)
+            {
+                winText.SetActive(true);
+            }
+        }
+
+        
         if(tryButton != null)
         {
             tryButton.SetActive(true);
