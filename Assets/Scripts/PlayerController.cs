@@ -173,10 +173,15 @@ public class PlayerController : NetworkBehaviour {
         currentStamina -= staminaDecrease * Time.deltaTime;
     }
 
-    [ServerCallback]
     private void OnParticleCollision(GameObject collision)
     {
-        RpcActivateDeath(gameObject);
+        NotifyDeath(gameObject);
+    }
+
+    [ServerCallback]
+    private void NotifyDeath(GameObject go)
+    {
+        RpcActivateDeath(go);
     }
 
     [ClientRpc]
