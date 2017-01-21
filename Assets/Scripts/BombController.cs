@@ -22,7 +22,7 @@ public class BombController : MonoBehaviour {
 	void Update () {
         if(bombText != null)
         {
-            bombText.text = "" + Mathf.Ceil(currentTimeToExplode);
+            bombText.text = "" + Mathf.Floor(currentTimeToExplode*20);
         }
         currentTimeToExplode -= Time.deltaTime;
         if(currentTimeToExplode <= 0.0f && !hasExploded)
