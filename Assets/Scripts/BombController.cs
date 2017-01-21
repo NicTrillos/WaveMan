@@ -1,36 +1,63 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class BombController : MonoBehaviour {
-
+public class BombController : NetworkBehaviour
+{
 	public float timeToExplode;
+    [SyncVar]
     public bool hasExploded;
     public ParticleSystem bombEffect;
     public Text bombText;
 
+    [SyncVar]
     private float currentTimeToExplode;    
     
-    // Use this for initialization
+    [ServerCallback]
 	void Start () {
         currentTimeToExplode = timeToExplode;
         hasExploded = false;
 	}
 	
-	// Update is called once per frame
+	[ServerCallback]
 	void Update () {
-        if(bombText != null)
+
+        if (bombText != null)
         {
-            bombText.text = "" + Mathf.Ceil(currentTimeToExplode);
+            bombText.text = "" + Mathf.Floor(currentTimeToExplode * 20f);
         }
-        currentTimeToExplode -= Time.deltaTime;
+
+        CmdDecreaseCurrentTimeToExplode();
         if(currentTimeToExplode <= 0.0f && !hasExploded)
         {
-            hasExploded = true;
-            GetComponent<SpriteRenderer>().enabled = false;
-            bombText.enabled = false;
-            bombEffect.Play();
+            CmdExplode(gameObject);
         }
 	}
+
+    [Command]
+    private void CmdDecreaseCurrentTimeToExplode()
+    {
+        currentTimeToExplode -= Time.deltaTime;
+    }
+
+    [Command]
+    private void CmdExplode(GameObject go)
+    {
+        hasExploded = true;
+        RpcExplode(go);
+    }
+
+    [RPC]
+    private void RpcExplode(GameObject go)
+    {
+        if (bombText != null)
+        {
+            bombText.enabled = false;
+        }
+        go.GetComponent<SpriteRenderer>().enabled = false;
+        go.GetComponentInChildren<ParticleSystem>().Play();
+
+    }
 }
