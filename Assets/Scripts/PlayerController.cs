@@ -106,12 +106,9 @@ public class PlayerController : NetworkBehaviour {
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnParticleCollision(GameObject collision)
     {
-        if (collision.gameObject.tag == "Bomb")
-        {
-            CmdDestroyPlayer(gameObject);
-        }
+        CmdDestroyPlayer(gameObject);
     }
 
     [Command]
@@ -137,7 +134,7 @@ public class PlayerController : NetworkBehaviour {
     private void CmdActivateBomb(Vector3 position)
     {
         isCharging = false;
-        RpcActivateBomb(position);
+        RpcActivateBomb(position, bombIncrease, bombIncreaseTime);
         bombIncrease = 0.0f;
         bombIncreaseTime = 0f;
     }
@@ -149,7 +146,7 @@ public class PlayerController : NetworkBehaviour {
     }
 
     [ClientRpc]
-    private void RpcActivateBomb(Vector3 position)
+    private void RpcActivateBomb(Vector3 position, float bombIncrease, float bombIncreaseTime)
     {
         GameObject bomb = GameObject.Instantiate(bombEffect);
         bomb.transform.position = position;
