@@ -229,4 +229,5 @@ public class PlayerController : NetworkBehaviour {
         bombController.bombEffect.startSize = bombBasicSize + bombIncrease;
         bombController.timeToExplode = bombBasicTime + bombIncreaseTime;
     }
+
 }
