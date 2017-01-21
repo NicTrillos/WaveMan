@@ -26,6 +26,7 @@ public class PlayerController : NetworkBehaviour {
     public Text victoryText;
     public Animator animator;
     public SpriteRenderer spriteRenderer;
+    public GameObject playerBomb;
     public GameObject winText;
     public GameObject loseText;
     public GameObject tryButton;
@@ -121,10 +122,12 @@ public class PlayerController : NetworkBehaviour {
             if (Input.GetKeyDown("space") && currentStamina > 0.0f)
             {
                 CmdSetIsCharging(true);
+                playerBomb.SetActive(true);
             }
 
             if (isCharging)
             {
+                rigidbody2d.velocity = new Vector2(0.0f,0.0f);
                 if (currentStamina <= 0.0f)
                 {
                     CmdActivateBomb(transform.position);
@@ -134,6 +137,7 @@ public class PlayerController : NetworkBehaviour {
                     CmdIncreaseBomb();
                     CmdDecreaseStamina();
                 }
+                direction = -1;
             }
 
             if (Input.GetKeyUp("space") && isCharging)
@@ -164,6 +168,7 @@ public class PlayerController : NetworkBehaviour {
     [Command]
     private void CmdActivateBomb(Vector3 position)
     {
+        playerBomb.SetActive(false);
         isCharging = false;
         RpcActivateBomb(position, bombIncrease, bombIncreaseTime);
         bombIncrease = 0.0f;
@@ -180,7 +185,7 @@ public class PlayerController : NetworkBehaviour {
     {
         if (!isLocalPlayer) return;
         isDead = true;
-        NotifyDeath();
+        RpcActivateEnd();
     }
 
     [ServerCallback]
@@ -226,7 +231,7 @@ public class PlayerController : NetworkBehaviour {
         GameObject bomb = GameObject.Instantiate(bombEffect);
         bomb.transform.position = position;
         BombController bombController = bomb.GetComponent<BombController>();
-        bombController.bombEffect.startSize = bombBasicSize + bombIncrease;
+        bombController.bombEffect.startSpeed = bombBasicSize + bombIncrease;
         bombController.timeToExplode = bombBasicTime + bombIncreaseTime;
     }
 

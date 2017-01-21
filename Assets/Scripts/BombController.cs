@@ -11,6 +11,7 @@ public class BombController : NetworkBehaviour
     //[SyncVar]
     public bool hasExploded;
     public ParticleSystem bombEffect;
+    public GameObject warningObject;
     public Text bombText;
 
     //[SyncVar]
@@ -50,6 +51,7 @@ public class BombController : NetworkBehaviour
             bombText.enabled = false;
         }
         go.GetComponent<SpriteRenderer>().enabled = false;
+        warningObject.SetActive(false);
         go.GetComponentInChildren<ParticleSystem>().Play();
 
     }
