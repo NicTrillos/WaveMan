@@ -38,7 +38,6 @@ public class PlayerController : NetworkBehaviour {
     private void Awake()
     {
         if (!isLocalPlayer) return;
-        //staminaBar = GameObject.FindGameObjectWithTag("StaminaBar").GetComponent<Slider>();
     }
 
     [ServerCallback]
