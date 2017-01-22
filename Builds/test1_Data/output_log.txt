@@ -17,7 +17,7 @@ Platform assembly: C:\Users\HP\Documents\GitHub\WaveMan\Builds\test1_Data\Manage
 Loading C:\Users\HP\Documents\GitHub\WaveMan\Builds\test1_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\HP\Documents\GitHub\WaveMan\Builds\test1_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
 Loading C:\Users\HP\Documents\GitHub\WaveMan\Builds\test1_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
-- Completed reload, in  0.041 seconds
+- Completed reload, in  0.056 seconds
 Platform assembly: C:\Users\HP\Documents\GitHub\WaveMan\Builds\test1_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\HP\Documents\GitHub\WaveMan\Builds\test1_Data\Managed\System.dll (this message is harmless)
 desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
@@ -25,38 +25,12 @@ desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 40.065472 ms
-Activated rpc
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Activated rpc
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
+UnloadTime: 55.900906 ms
 Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 16.845476 ms
+UnloadTime: 22.525635 ms
 
-Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 1892.
-Total: 11.099137 ms (FindLiveObjects: 0.326299 ms CreateObjectMapping: 0.186861 ms MarkObjects: 10.534307 ms  DeleteObjects: 0.048130 ms)
-
-Activated rpc
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Activated rpc
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Activated rpc
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 2.503163 ms
-
-Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 1895.
-Total: 2.821322 ms (FindLiveObjects: 0.409466 ms CreateObjectMapping: 0.155717 ms MarkObjects: 2.243751 ms  DeleteObjects: 0.010617 ms)
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 1893.
+Total: 512.322083 ms (FindLiveObjects: 0.518115 ms CreateObjectMapping: 0.256226 ms MarkObjects: 511.524017 ms  DeleteObjects: 0.018403 ms)
 
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 2084 -> priority: 1 
+  Thread -> id: 2a80 -> priority: 1 

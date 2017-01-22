@@ -67,13 +67,10 @@ public class PlayerController : NetworkBehaviour {
         isCharging = false;
 	}
 
-    public override void OnStartClient()
+    public override void OnStartLocalPlayer()
     {
-        base.OnStartClient();
-        if (!isLocalPlayer)
-        {
-            GetComponent<BoxCollider2D>().enabled = false;
-        }
+        base.OnStartLocalPlayer();
+        GetComponent<BoxCollider2D>().enabled = true;
     }
 
     // Update is called once per frame
