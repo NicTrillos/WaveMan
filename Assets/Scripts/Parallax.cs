@@ -7,9 +7,16 @@ public class Parallax : NetworkBehaviour
 {
     [SerializeField]
     private float speed = .4f;
-	private void Update ()
+
+    private void Start()
     {
-        if (!isLocalPlayer) return;
+        
+    }
+
+    private void Update ()
+    {
+        
+        if (!hasAuthority) return;
 
         if (Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
         {
