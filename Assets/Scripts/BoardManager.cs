@@ -74,7 +74,7 @@ public class BoardManager : MonoBehaviour
                 GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
                 //Check if we current position is at board edge, if so choose a random outer wall
                 //prefab from our array of outer wall tiles.
-                if (x == -1 || y == -1 || x == columns || y == rows)
+                if (y == -1 || y == rows)
                 {
                     toInstantiate = outerWallTiles[1];
                 }
@@ -82,7 +82,7 @@ public class BoardManager : MonoBehaviour
                 {
                     toInstantiate = outerWallTiles[0];
                 }
-                if (x == -1 && y == rows || x == columns && y == -1 || x == columns && y == rows )
+                if (x == -1 || x == columns)
                 {
                     toInstantiate = outerWallTiles[2];
                 }
