@@ -15,23 +15,23 @@ public class IntroSceneController : MonoBehaviour {
 
     public void StartGame()
     {
+        buttonClick.Play();
         SceneManager.LoadScene("Main");
     }
 
     public void ExitGame()
     {
+        buttonClick.Play();
         Application.Quit();
     }
 
     public void ShowCredits()
     {
         creditsAnimator.SetBool("Show", true);
-        Debug.Log("Reached here");
     }
 
     public void HideCredits()
     {
         creditsAnimator.SetBool("Show", false);
-        Debug.Log("Reached here again");
     }
 }

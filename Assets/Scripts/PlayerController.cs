@@ -17,6 +17,7 @@ public class PlayerController : NetworkBehaviour {
     [SyncVar]
     public float currentStamina;
     public float staminaDecrease;
+    public float staminaIncrease;
     public float bombIncreaseRate;
     public float bombBasicSize;
     public float bombIncreaseSpeedRate;
@@ -104,22 +105,14 @@ public class PlayerController : NetworkBehaviour {
 
                 rigidbody2d.velocity = new Vector2(moveX, moveY) * charSpeed;
 
-                /**if (this.transform.position.x > horizontalLimit)
+                if(currentStamina + staminaIncrease*Time.deltaTime > maxStamina)
                 {
-                    this.transform.position = new Vector3(horizontalLimit, this.transform.position.y, 0);
+                    currentStamina = maxStamina;
                 }
-                if (this.transform.position.x < -horizontalLimit)
+                else
                 {
-                    this.transform.position = new Vector3(-horizontalLimit, this.transform.position.y, 0);
+                    currentStamina += staminaIncrease * Time.deltaTime;
                 }
-                if (this.transform.position.y > verticalLimit)
-                {
-                    this.transform.position = new Vector3(this.transform.position.x, verticalLimit, 0);
-                }
-                if (this.transform.position.y < -verticalLimit)
-                {
-                    this.transform.position = new Vector3(this.transform.position.x, -verticalLimit, 0);
-                }*/
             }
 
             if (Input.GetKeyDown("space") && currentStamina > 0.0f)
