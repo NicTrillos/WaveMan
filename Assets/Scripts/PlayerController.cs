@@ -34,7 +34,6 @@ public class PlayerController : NetworkBehaviour {
     public GameObject playerBomb;
     public AudioSource winSound;
     public AudioSource loseSound;
-    public GameObject canvas;
 
     [SyncVar]
     public bool isGameEnd;
@@ -52,7 +51,6 @@ public class PlayerController : NetworkBehaviour {
     private void Reset()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
-        canvas.SetActive(true);
     }
 
     private void Awake()
@@ -73,7 +71,6 @@ public class PlayerController : NetworkBehaviour {
     {
         base.OnStartLocalPlayer();
         GetComponent<BoxCollider2D>().enabled = true;
-        canvas.SetActive(true);
     }
 
     // Update is called once per frame
