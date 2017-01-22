@@ -32,8 +32,8 @@ public class PlayerController : NetworkBehaviour {
     public Animator defeatAnimator;
     public SpriteRenderer spriteRenderer;
     public GameObject playerBomb;
-    public GameObject winText;
-    public GameObject loseText;
+    public AudioSource winSound;
+    public AudioSource loseSound;
 
     [SyncVar]
     public bool isGameEnd;
@@ -211,11 +211,13 @@ public class PlayerController : NetworkBehaviour {
         {
             animator.SetTrigger("Lose");
             defeatAnimator.SetTrigger("Appear");
+            loseSound.Play();
         }
         else
         {
             animator.SetTrigger("Win");
             victoryAnimator.SetTrigger("Appear");
+            winSound.Play();
         }
     }
 

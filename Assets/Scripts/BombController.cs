@@ -20,9 +20,13 @@ public class BombController : NetworkBehaviour
     public bool waveEffectActive;
     public GameObject warningObject;
     public Text bombText;
+    public AudioSource smallBombExplosion;
+    public AudioSource largeBombExplosion;
 
     //[SyncVar]
-    private float currentTimeToExplode;    
+    private float currentTimeToExplode;
+
+    private bool isSmall;    
     
     //[ServerCallback]
 	void Start () {
@@ -31,10 +35,12 @@ public class BombController : NetworkBehaviour
         if (timeToExplode <= smallBombLimit)
         {
             smallBomb.SetActive(true);
+            isSmall = true;
         }
         else
         {
             largeBomb.SetActive(true);
+            isSmall = false;
         }
     }
 	
@@ -65,11 +71,20 @@ public class BombController : NetworkBehaviour
         {
             bombText.enabled = false;
         }
-        //go.GetComponent<SpriteRenderer>().enabled = false;
+        
         smallBomb.SetActive(false);
         largeBomb.SetActive(false);
 
         warningObject.SetActive(false);
+
+        if(isSmall)
+        {
+            smallBombExplosion.Play();
+        }
+        else
+        {
+            largeBombExplosion.Play();
+        }
         
         if(bombEffectActivate && bombEffect != null)
         {
