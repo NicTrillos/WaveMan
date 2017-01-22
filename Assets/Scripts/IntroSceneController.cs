@@ -8,15 +8,16 @@ public class IntroSceneController : MonoBehaviour {
     public Animator creditsAnimator;
     public AudioSource buttonClick;
 
-    public void Start()
-    {
-        creditsAnimator.SetBool("Show", false);
-    }
-
     public void StartGame()
     {
         buttonClick.Play();
         SceneManager.LoadScene("Main");
+    }
+
+    public void GoBack()
+    {
+        buttonClick.Play();
+        SceneManager.LoadScene("StartScene");
     }
 
     public void ExitGame()
