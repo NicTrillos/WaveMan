@@ -185,12 +185,12 @@ public class PlayerController : NetworkBehaviour {
 
     private void OnParticleCollision(GameObject collision)
     {
-        if (!hasAuthority) return;
+        if (!isLocalPlayer) return;
         isDead = true;
         NotifyDeath();
     }
 
-    [ServerCallback]
+    [Command]
     private void NotifyDeath()
     {
         RpcActivateEnd();
