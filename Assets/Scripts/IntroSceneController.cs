@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 
-public class IntroSceneController : MonoBehaviour {
+public class IntroSceneController : NetworkBehaviour {
 
     public Animator creditsAnimator;
     public Animator howToPlayAnimator;
@@ -18,6 +19,14 @@ public class IntroSceneController : MonoBehaviour {
     public void GoBack()
     {
         buttonClick.Play();
+        if(isServer)
+        {
+            NetworkManager.singleton.StopHost();
+        }
+        else if(isClient)
+        {
+            NetworkManager.singleton.StopClient();
+        }
         SceneManager.LoadScene("StartScene");
     }
 
