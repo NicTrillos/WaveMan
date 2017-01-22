@@ -66,9 +66,18 @@ public class PlayerController : NetworkBehaviour {
         currentStamina = maxStamina;
         isCharging = false;
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        if (!isLocalPlayer)
+        {
+            GetComponent<BoxCollider2D>().enabled = false;
+        }
+    }
+
+    // Update is called once per frame
+    void Update ()
     {
         if (!isLocalPlayer) return;
 
@@ -195,11 +204,12 @@ public class PlayerController : NetworkBehaviour {
     [ClientRpc]
     private void RpcActivateEnd()
     {
-        if (!isLocalPlayer) return;
+        
         Debug.Log("Activated rpc");
         isGameEnd = true;
         isCharging = false;
         GetComponent<Collider2D>().enabled = false;
+
         if(isDead)
         {
             animator.SetTrigger("Lose");
