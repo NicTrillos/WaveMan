@@ -16,6 +16,6 @@ public class GameController : MonoBehaviour
 
     public void RestartScene()
     {
-        SceneManager.LoadScene("Main");
+        NetworkManager.singleton.ServerChangeScene("Main");
     }
 }
