@@ -35,7 +35,7 @@ public class PlayerController : NetworkBehaviour {
     public GameObject winText;
     public GameObject loseText;
     public bool isGameEnd;
-   
+    [SyncVar]
     public bool isDead;
 
     [SyncVar]
@@ -185,7 +185,7 @@ public class PlayerController : NetworkBehaviour {
 
     private void OnParticleCollision(GameObject collision)
     {
-        if (!isLocalPlayer) return;
+        if (!hasAuthority) return;
         isDead = true;
         RpcActivateEnd();
     }
@@ -199,7 +199,7 @@ public class PlayerController : NetworkBehaviour {
     [ClientRpc]
     private void RpcActivateEnd()
     {
-        if (!isLocalPlayer) return;
+        if (!hasAuthority) return;
         Debug.Log("Activated rpc");
         isGameEnd = true;
         isCharging = false;
