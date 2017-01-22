@@ -20,4 +20,12 @@ public class PlayerHider : NetworkBehaviour
             spriteRender.enabled = false;
         }
     }
+
+    public void ShowOther()
+    {
+        if (!isLocalPlayer)
+        {
+            spriteRender.enabled = true;
+        }
+    }
 }

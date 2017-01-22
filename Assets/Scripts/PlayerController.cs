@@ -201,19 +201,35 @@ public class PlayerController : NetworkBehaviour {
     [ClientRpc]
     private void RpcActivateEnd()
     {
+        GetComponent<PlayerHider>().ShowOther();
         isGameEnd = true;
         isCharging = false;
         GetComponent<Collider2D>().enabled = false;
         staminaBar.transform.Translate(0.0f, -1000.0f, 0.0f);
         if(isDead)
         {
-            animator.SetTrigger("Lose");
+            if(isLocalPlayer)
+            {
+                animator.SetTrigger("Lose");
+            }
+            else
+            {
+                animator.SetTrigger("Win");
+            }
+            
             defeatAnimator.SetTrigger("Appear");
             loseSound.Play();
         }
         else
         {
-            animator.SetTrigger("Win");
+            if (isLocalPlayer)
+            {
+                animator.SetTrigger("Win");
+            }
+            else
+            {
+                animator.SetTrigger("Lose");
+            }
             victoryAnimator.SetTrigger("Appear");
             winSound.Play();
         }
