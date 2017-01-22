@@ -7,6 +7,11 @@ public class IntroSceneController : MonoBehaviour {
 
     public Animator creditsAnimator;
 
+    public void Start()
+    {
+        creditsAnimator.SetBool("Show", false);
+    }
+
     public void StartGame()
     {
         SceneManager.LoadScene("Main");

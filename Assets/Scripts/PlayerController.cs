@@ -126,7 +126,7 @@ public class PlayerController : NetworkBehaviour {
             if (Input.GetKeyDown("space") && currentStamina > 0.0f)
             {
                 CmdSetIsCharging(true);
-                playerBomb.SetActive(true);
+                playerBomb.SetActive(true);                
             }
 
             if (isCharging)
@@ -153,6 +153,8 @@ public class PlayerController : NetworkBehaviour {
             {                
                 staminaBar.value = currentStamina / maxStamina;
             }
+
+            animator.SetBool("Charging", isCharging);
         }        
     }
         
@@ -206,6 +208,7 @@ public class PlayerController : NetworkBehaviour {
         if (!isLocalPlayer) return;
         Debug.Log("Activated rpc");
         isGameEnd = true;
+        isCharging = false;
         GetComponent<Collider2D>().enabled = false;
         if(isDead)
         {
