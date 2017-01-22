@@ -54,7 +54,7 @@ public class PlayerController : NetworkBehaviour {
 
     private void Awake()
     {
-        if (!isLocalPlayer) return;
+        if (!hasAuthority) return;
         direction = -1;
         isGameEnd = false;
         isDead = false;
@@ -69,7 +69,7 @@ public class PlayerController : NetworkBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (!isLocalPlayer) return;
+        if (!hasAuthority) return;
 
         if(!isGameEnd)
         {
