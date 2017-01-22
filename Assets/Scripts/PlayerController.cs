@@ -34,11 +34,12 @@ public class PlayerController : NetworkBehaviour {
     public GameObject playerBomb;
     public GameObject winText;
     public GameObject loseText;
+
+    [SyncVar]
     public bool isGameEnd;
     [SyncVar]
     public bool isDead;
 
-    [SyncVar]
     private bool isCharging;
     [SyncVar]
     public float bombIncrease = 0.0f;
@@ -69,7 +70,7 @@ public class PlayerController : NetworkBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (!hasAuthority) return;
+        if (!isLocalPlayer) return;
 
         if(!isGameEnd)
         {
@@ -119,7 +120,7 @@ public class PlayerController : NetworkBehaviour {
 
             if (Input.GetKeyDown("space") && currentStamina > 0.0f)
             {
-                CmdSetIsCharging(true);
+                isCharging = true;
                 playerBomb.SetActive(true);                
             }
 
@@ -128,6 +129,7 @@ public class PlayerController : NetworkBehaviour {
                 rigidbody2d.velocity = new Vector2(0.0f,0.0f);
                 if (currentStamina <= 0.0f)
                 {
+                    isCharging = false;
                     CmdActivateBomb(transform.position);
                 }
                 else
@@ -140,6 +142,7 @@ public class PlayerController : NetworkBehaviour {
 
             if (Input.GetKeyUp("space") && isCharging)
             {
+                isCharging = false;
                 CmdActivateBomb(transform.position);
             }
 
@@ -151,12 +154,7 @@ public class PlayerController : NetworkBehaviour {
             animator.SetBool("Charging", isCharging);
         }        
     }
-        
-    [Command]
-    private void CmdSetIsCharging(bool v)
-    {
-        isCharging = v;
-    }
+
 
     [Command]
     private void CmdIncreaseBomb()
@@ -169,8 +167,7 @@ public class PlayerController : NetworkBehaviour {
     [Command]
     private void CmdActivateBomb(Vector3 position)
     {
-        playerBomb.SetActive(false);
-        isCharging = false;
+        playerBomb.SetActive(false);        
         RpcActivateBomb(position, bombIncrease, bombIncreaseTime);
         bombIncrease = 0.0f;
         bombIncreaseTime = 0.0f;
@@ -199,7 +196,7 @@ public class PlayerController : NetworkBehaviour {
     [ClientRpc]
     private void RpcActivateEnd()
     {
-        if (!hasAuthority) return;
+        if (!isLocalPlayer) return;
         Debug.Log("Activated rpc");
         isGameEnd = true;
         isCharging = false;
