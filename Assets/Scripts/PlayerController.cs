@@ -73,6 +73,7 @@ public class PlayerController : NetworkBehaviour {
     {
         base.OnStartLocalPlayer();
         GetComponent<BoxCollider2D>().enabled = true;
+        canvas.SetActive(true);
     }
 
     // Update is called once per frame
