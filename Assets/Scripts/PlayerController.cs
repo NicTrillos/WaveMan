@@ -166,8 +166,7 @@ public class PlayerController : NetworkBehaviour {
 
     [Command]
     private void CmdActivateBomb(Vector3 position)
-    {
-        playerBomb.SetActive(false);        
+    {        
         RpcActivateBomb(position, bombIncrease, bombIncreaseTime);
         bombIncrease = 0.0f;
         bombIncreaseTime = 0.0f;
@@ -216,6 +215,7 @@ public class PlayerController : NetworkBehaviour {
     [ClientRpc]
     private void RpcActivateBomb(Vector3 position, float bombIncrease, float bombIncreaseTime)
     {
+        playerBomb.SetActive(false);
         GameObject bomb = GameObject.Instantiate(bombEffect);
         bomb.transform.position = position;
         BombController bombController = bomb.GetComponent<BombController>();
