@@ -31,7 +31,6 @@ public class PlayerController : NetworkBehaviour {
     public GameObject playerBomb;
     public GameObject winText;
     public GameObject loseText;
-    public GameObject tryButton;
     public bool isGameEnd;
    
     public bool isDead;
@@ -225,12 +224,6 @@ public class PlayerController : NetworkBehaviour {
             {
                 winText.SetActive(true);
             }
-        }
-
-        
-        if(tryButton != null)
-        {
-            tryButton.SetActive(true);
         }
     }
 
