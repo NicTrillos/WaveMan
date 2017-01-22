@@ -27,11 +27,13 @@ public class IntroSceneController : MonoBehaviour {
 
     public void ShowCredits()
     {
-        creditsAnimator.SetBool("Show", true);
+        creditsAnimator.SetBool("Hide", false);
+        creditsAnimator.SetBool("Show", true);        
     }
 
     public void HideCredits()
     {
         creditsAnimator.SetBool("Show", false);
+        creditsAnimator.SetBool("Hide", true);
     }
 }
