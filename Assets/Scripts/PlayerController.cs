@@ -201,12 +201,10 @@ public class PlayerController : NetworkBehaviour {
     [ClientRpc]
     private void RpcActivateEnd()
     {
-        
-        Debug.Log("Activated rpc");
         isGameEnd = true;
         isCharging = false;
         GetComponent<Collider2D>().enabled = false;
-
+        staminaBar.transform.Translate(0.0f, -1000.0f, 0.0f);
         if(isDead)
         {
             animator.SetTrigger("Lose");
