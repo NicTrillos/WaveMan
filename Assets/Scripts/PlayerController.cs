@@ -19,6 +19,8 @@ public class PlayerController : NetworkBehaviour {
     public float staminaDecrease;
     public float bombIncreaseRate;
     public float bombBasicSize;
+    public float bombIncreaseSpeedRate;
+    public float bombBasicSpeed;
     public float bombBasicTime;
     public float bombTimeIncreaseRate;
     public GameObject bombEffect;
@@ -40,6 +42,8 @@ public class PlayerController : NetworkBehaviour {
     public float bombIncrease = 0.0f;
     [SyncVar]
     public float bombIncreaseTime = 0.0f;
+    [SyncVar]
+    public float bombIncreaseSpeed = 0.0f;
 
     private void Reset()
     {
@@ -101,7 +105,7 @@ public class PlayerController : NetworkBehaviour {
 
                 rigidbody2d.velocity = new Vector2(moveX, moveY) * charSpeed;
 
-                if (this.transform.position.x > horizontalLimit)
+                /**if (this.transform.position.x > horizontalLimit)
                 {
                     this.transform.position = new Vector3(horizontalLimit, this.transform.position.y, 0);
                 }
@@ -116,7 +120,7 @@ public class PlayerController : NetworkBehaviour {
                 if (this.transform.position.y < -verticalLimit)
                 {
                     this.transform.position = new Vector3(this.transform.position.x, -verticalLimit, 0);
-                }
+                }*/
             }
 
             if (Input.GetKeyDown("space") && currentStamina > 0.0f)
@@ -163,6 +167,7 @@ public class PlayerController : NetworkBehaviour {
     {
         bombIncrease += bombIncreaseRate * Time.deltaTime;
         bombIncreaseTime += bombTimeIncreaseRate * Time.deltaTime;
+        bombIncreaseSpeed += bombIncreaseSpeedRate * Time.deltaTime;
     }
 
     [Command]
@@ -172,7 +177,8 @@ public class PlayerController : NetworkBehaviour {
         isCharging = false;
         RpcActivateBomb(position, bombIncrease, bombIncreaseTime);
         bombIncrease = 0.0f;
-        bombIncreaseTime = 0f;
+        bombIncreaseTime = 0.0f;
+        bombIncreaseSpeed = 0.0f;
     }
 
     [Command]
@@ -231,8 +237,10 @@ public class PlayerController : NetworkBehaviour {
         GameObject bomb = GameObject.Instantiate(bombEffect);
         bomb.transform.position = position;
         BombController bombController = bomb.GetComponent<BombController>();
-        bombController.bombEffect.startSpeed = bombBasicSize + bombIncrease;
+        bombController.bombEffect.startSpeed = bombBasicSpeed + bombIncreaseSpeed;
         bombController.timeToExplode = bombBasicTime + bombIncreaseTime;
+        bombController.waveEffect.startSize = bombBasicSize + bombIncrease;
+        //bombController.waveEffect.startSpeed = bombBasicSpeed + bombBasicSpeed;
     }
 
 }
