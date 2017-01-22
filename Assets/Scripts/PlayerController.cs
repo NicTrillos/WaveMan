@@ -28,6 +28,8 @@ public class PlayerController : NetworkBehaviour {
     public Slider staminaBar;
     public Text victoryText;
     public Animator animator;
+    public Animator victoryAnimator;
+    public Animator defeatAnimator;
     public SpriteRenderer spriteRenderer;
     public GameObject playerBomb;
     public GameObject winText;
@@ -205,18 +207,12 @@ public class PlayerController : NetworkBehaviour {
         if(isDead)
         {
             animator.SetTrigger("Lose");
-            if (loseText != null)
-            {
-                loseText.SetActive(true);
-            }
+            defeatAnimator.SetTrigger("Appear");
         }
         else
         {
             animator.SetTrigger("Win");
-            if (winText != null)
-            {
-                winText.SetActive(true);
-            }
+            victoryAnimator.SetTrigger("Appear");
         }
     }
 
