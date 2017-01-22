@@ -8,8 +8,12 @@ public class BombController : NetworkBehaviour
 {
     //[SyncVar]
 	public float timeToExplode;
+    public float timeAdjustment;
     //[SyncVar]
     public bool hasExploded;
+    public GameObject smallBomb;
+    public GameObject largeBomb;
+    public float smallBombLimit;
     public ParticleSystem bombEffect;
     public bool bombEffectActivate;
     public ParticleSystem waveEffect;
@@ -24,16 +28,24 @@ public class BombController : NetworkBehaviour
 	void Start () {
         currentTimeToExplode = timeToExplode;
         hasExploded = false;
-	}
+        if (timeToExplode <= smallBombLimit)
+        {
+            smallBomb.SetActive(true);
+        }
+        else
+        {
+            largeBomb.SetActive(true);
+        }
+    }
 	
     //[ServerCallback]
 	void Update () {
 
         if (bombText != null)
         {
-            bombText.text = "" + Mathf.Floor(currentTimeToExplode * 20f);
-        }
-        
+            bombText.text = "" + Mathf.Floor(currentTimeToExplode * timeAdjustment);
+        }        
+
         currentTimeToExplode -= Time.deltaTime;
         if (currentTimeToExplode <= 0.0f && !hasExploded)
         {
@@ -53,8 +65,12 @@ public class BombController : NetworkBehaviour
         {
             bombText.enabled = false;
         }
-        go.GetComponent<SpriteRenderer>().enabled = false;
+        //go.GetComponent<SpriteRenderer>().enabled = false;
+        smallBomb.SetActive(false);
+        largeBomb.SetActive(false);
+
         warningObject.SetActive(false);
+        
         if(bombEffectActivate && bombEffect != null)
         {
             bombEffect.Play();
