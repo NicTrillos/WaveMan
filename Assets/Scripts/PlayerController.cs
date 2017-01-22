@@ -187,7 +187,7 @@ public class PlayerController : NetworkBehaviour {
     {
         if (!hasAuthority) return;
         isDead = true;
-        RpcActivateEnd();
+        NotifyDeath();
     }
 
     [ServerCallback]
