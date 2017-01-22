@@ -187,11 +187,11 @@ public class PlayerController : NetworkBehaviour {
     {
         if (!isLocalPlayer) return;
         isDead = true;
-        NotifyDeath();
+        CmdNotifyDeath();
     }
 
     [Command]
-    private void NotifyDeath()
+    private void CmdNotifyDeath()
     {
         RpcActivateEnd();
     }
