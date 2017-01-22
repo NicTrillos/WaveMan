@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class IntroSceneController : MonoBehaviour {
 
     public Animator creditsAnimator;
+    public Animator howToPlayAnimator;
     public AudioSource buttonClick;
 
     public void StartGame()
@@ -36,5 +37,17 @@ public class IntroSceneController : MonoBehaviour {
     {
         creditsAnimator.SetBool("Show", false);
         creditsAnimator.SetBool("Hide", true);
+    }
+
+    public void ShowHowToPlay()
+    {
+        howToPlayAnimator.SetBool("Hide", false);
+        howToPlayAnimator.SetBool("Show", true);
+    }
+
+    public void HideHowToPlay()
+    {
+        howToPlayAnimator.SetBool("Show", false);
+        howToPlayAnimator.SetBool("Hide", true);
     }
 }
