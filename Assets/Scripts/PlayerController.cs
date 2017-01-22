@@ -236,7 +236,6 @@ public class PlayerController : NetworkBehaviour {
         bombController.bombEffect.startSpeed = bombBasicSpeed + bombIncreaseSpeed;
         bombController.timeToExplode = bombBasicTime + bombIncreaseTime;
         bombController.waveEffect.startSize = bombBasicSize + bombIncrease;
-        //bombController.waveEffect.startSpeed = bombBasicSpeed + bombBasicSpeed;
     }
 
 }
