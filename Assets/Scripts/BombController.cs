@@ -11,6 +11,9 @@ public class BombController : NetworkBehaviour
     //[SyncVar]
     public bool hasExploded;
     public ParticleSystem bombEffect;
+    public bool bombEffectActivate;
+    public ParticleSystem waveEffect;
+    public bool waveEffectActive;
     public GameObject warningObject;
     public Text bombText;
 
@@ -52,7 +55,13 @@ public class BombController : NetworkBehaviour
         }
         go.GetComponent<SpriteRenderer>().enabled = false;
         warningObject.SetActive(false);
-        go.GetComponentInChildren<ParticleSystem>().Play();
-
+        if(bombEffectActivate && bombEffect != null)
+        {
+            bombEffect.Play();
+        }
+        if (waveEffectActive && waveEffect != null)
+        {
+            waveEffect.Play();
+        }
     }
 }
