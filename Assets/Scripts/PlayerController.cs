@@ -34,6 +34,8 @@ public class PlayerController : NetworkBehaviour {
     public GameObject playerBomb;
     public AudioSource winSound;
     public AudioSource loseSound;
+    public AudioSource winFX;
+    public AudioSource loseFX;
 
     [SyncVar]
     public bool isGameEnd;
@@ -219,6 +221,7 @@ public class PlayerController : NetworkBehaviour {
             
             defeatAnimator.SetTrigger("Appear");
             loseSound.Play();
+            loseFX.Play();
         }
         else
         {
@@ -232,6 +235,7 @@ public class PlayerController : NetworkBehaviour {
             }
             victoryAnimator.SetTrigger("Appear");
             winSound.Play();
+            winFX.Play();
         }
     }
 
